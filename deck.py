@@ -1,14 +1,4 @@
 import random
-# from hand import Hand
-
-
-class Blackjack:
-
-    def __init__(self):
-        print("Welcome to Blackjack!")
-
-
-
 
 
 class Deck:
@@ -16,56 +6,49 @@ class Deck:
     def __init__(self):
         self.cards = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
         self.values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-        self.cards_values = dict(zip(self.cards, self.values))
+        self.cards_values = (dict(zip(self.cards, self.values)))
         self.full_deck = list(self.cards) * 4
-        self.hand_values = []
+        self.user_hand_values = []
+        self.dealer_hand_values = []
         self.make_hand = []
+        self.make_user_hand = []
+        self.make_dealer_hand = []
 
     def shuffle(self):
         random.shuffle(self.full_deck)
 
-    def deal_hand(self):
-        self.make_hand = [self.full_deck.pop() for _ in range(2)]
-        print(self.make_hand)
-        for card in self.make_hand:
-            self.hand_values.append(self.cards_values[card])
-        print("Your total is:", sum(self.hand_values))
+    def deal_user_hand(self):
+        self.make_user_hand = [self.full_deck.pop() for _ in range(2)]
+        print(self.make_user_hand)
+        for card in self.make_user_hand:
+            self.user_hand_values.append(self.cards_values[card])
+            if sum(self.user_hand_values) < 11:
+                self.cards_values['A'] = 11
+        print("Your total is:", sum(self.user_hand_values))
+
+    def deal_dealer_hand(self):
+        self.make_dealer_hand = [self.full_deck.pop() for _ in range(2)]
+        print(self.make_dealer_hand)
+        for card in self.make_dealer_hand:
+            self.dealer_hand_values.append(self.cards_values[card])
+            if sum(self.dealer_hand_values) < 11:
+                self.cards_values['A'] = 11
+        print("Dealer's total is:", sum(self.dealer_hand_values))
 
 
 
 
-class Game:
 
 
 
-    def __init__(self):
-
-        deck = Deck()
-        deck.shuffle()
-        deck.deal_hand()
-        self.hit_value = []
 
 
 
-        while True:
-
-            self.hit_or_stay = input("Would you like to hit or stay? y/n: ")
-
-            if self.hit_or_stay == "y":
-                self.hit = [deck.full_deck.pop() for _ in range(1)]
-                print(self.hit)
-                for card in self.hit:
-                    self.hit_value.append(deck.cards_values[card])
-                    print("Your total is:", sum(deck.hand_values + self.hit_value))
-
-            elif self.hit_or_stay == "n":
-                print("You stay.")
-                break
 
 
 
-game = Game()
-game.play()
+
+
 
 
 
