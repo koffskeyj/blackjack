@@ -1,6 +1,7 @@
 from deck import Deck
 from blackjack import Blackjack
 
+
 class Game:
     def __init__(self):
 
@@ -29,11 +30,15 @@ class Game:
                 for card in self.user_hit:
                     self.hit_value.append(deck.cards_values[card])
                     print("Your total is:", sum(deck.user_hand_values + self.hit_value))
-                    if sum(deck.user_hand_values + self.hit_value) > 11:
+                    if sum(deck.user_hand_values + self.hit_value) >= 11:
                         deck.cards_values['A'] = 1
                     if sum(deck.user_hand_values + self.hit_value) > 21:
                         print("Bust!")
-                        exit()
+                        self.user_input = input("Would you like to play again? y/n ")
+                        if self.user_input == "y":
+                            Game()
+                        else:
+                            exit()
 
             if self.user_hit_or_stay == "stay":
                 print("You stay.")
@@ -44,21 +49,41 @@ class Game:
                 for card in self.dealer_hit:
                     self.dealer_hit_value.append(deck.cards_values[card])
                     print("Dealer's total is:", sum(deck.dealer_hand_values + self.dealer_hit_value))
-                    if sum(deck.dealer_hand_values + self.dealer_hit_value) > 11:
+                    if sum(deck.dealer_hand_values + self.dealer_hit_value) >= 11:
                         deck.cards_values['A'] = 1
                     if sum(deck.dealer_hand_values + self.dealer_hit_value) > 21:
-                        print("Dealer Busts!")
-                        exit()
+                        print("Dealer Busts! You win!")
+                        self.user_input = input("Would you like to play again? y/n ")
+                        if self.user_input == "y":
+                            Game()
+                        else:
+                            exit()
             if sum(deck.dealer_hand_values + self.dealer_hit_value) >= 17:
+
                 if self.user_hit_or_stay == "hit":
                     continue
                 if self.user_hit_or_stay == "stay":
                     if sum(deck.dealer_hand_values + self.dealer_hit_value) < sum(deck.user_hand_values + self.hit_value):
                         print("You win!")
+                        self.user_input = input("Would you like to play again? y/n ")
+                        if self.user_input == "y":
+                            Game()
+                        else:
+                            exit()
+                    elif sum(deck.dealer_hand_values + self.dealer_hit_value) == sum(deck.user_hand_values + self.hit_value):
+                        print("Draw!")
+                        self.user_input = input("Would you like to play again? y/n ")
+                        if self.user_input == "y":
+                            Game()
+                        else:
+                            exit()
                     else:
-                        print("Dealer wins!")
-
-
+                        print("Dealer wins!", sum(deck.dealer_hand_values + self.dealer_hit_value))
+                        self.user_input = input("Would you like to play again? y/n ")
+                        if self.user_input == "y":
+                            Game()
+                        else:
+                            exit()
 
 
 blackjack = Blackjack()

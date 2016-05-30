@@ -30,7 +30,7 @@ class Deck:
 
     def deal_dealer_hand(self):
         self.make_dealer_hand = [self.full_deck.pop() for _ in range(2)]
-        print(self.make_dealer_hand[:1])
+        print(self.make_dealer_hand)
         for card in self.make_dealer_hand:
             if card[0:1] == 'A':
                 self.cards_values['A'] = 11
@@ -38,26 +38,6 @@ class Deck:
             if sum(self.dealer_hand_values) < 11:
                 self.cards_values['A'] = 11
         print("Dealer's total is:", sum(self.dealer_hand_values))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
