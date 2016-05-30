@@ -16,8 +16,8 @@ class Game:
         self.dealer_hit = []
 
         def play_again():
-            user_input = input("Would you like to play again? y/n ")
-            if user_input == "y":
+            self.user_input = input("Would you like to play again? y/n ")
+            if self.user_input == "y":
                 Game()
             else:
                 exit()
@@ -78,11 +78,10 @@ class Game:
                     total()
                     play_again()
                 else:
-                    print("Dealer wins!", sum(deck.dealer_hand_values + self.dealer_hit_value))
+                    print("Dealer wins!")
                     total()
                     play_again()
 
-blackjack = Blackjack()
-game = Game()
-
+Blackjack()
+Game()
 
